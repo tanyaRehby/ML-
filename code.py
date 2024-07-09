@@ -40,7 +40,7 @@ def main():
     # Extract ingredients
     ingredients = df['all_ingredients'].apply(lambda x: ','.join(eval(x)))
 
-    # One-Hot Encoding the ingredients
+    
     vectorizer = CountVectorizer()
     X = vectorizer.fit_transform(ingredients)
 
@@ -86,7 +86,7 @@ def main():
     # print(f"Accuracy - G6PD Allergy: {accuracy_G6PD:.2f}")
     # print(f"Accuracy - Vegan: {accuracy_vegan:.2f}")
 
-    # Generate confusion matrices
+    # Generate confusion matrixes
     def plot_confusion_matrix(y_true, y_pred, title):
         cm = confusion_matrix(y_true, y_pred)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=[0, 1])
@@ -118,7 +118,7 @@ def main():
             print(f"Unknown allergy: {allergy}")
             return False
 
-        # Predict if the food is safe (0 = safe, 1 = allergic reaction possible)
+        # Predict if the food is safe (0 = safe, 1 = not safe)
         prediction = clf.predict(food_vector)[0]
 
         if prediction == 0:
@@ -126,7 +126,7 @@ def main():
         else:
             return f"Warning: '{food}' may not be safe for your {allergy}."
 
-    # Example usage
+    # Example 
     food = input("Enter a food: ").strip().lower()
     allergy = input("Enter an allergy (gluten_allergy, lactose_allergy, G6PD_allergy, vegan): ").strip().lower()
 
